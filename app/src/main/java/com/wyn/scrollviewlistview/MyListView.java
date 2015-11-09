@@ -32,7 +32,6 @@ public class MyListView extends ListView {
         int newHeight = 0;
         final int heightMode = MeasureSpec.getMode(heightMeasureSpec);
         int heigtSize = MeasureSpec.getSize(heightMeasureSpec);
-        //calculate
         if(heightMode != MeasureSpec.EXACTLY){
            ListAdapter adapter = getAdapter();
            if(adapter != null && !adapter.isEmpty()){
