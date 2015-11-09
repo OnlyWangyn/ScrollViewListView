@@ -2,17 +2,15 @@ package com.wyn.scrollviewlistview;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
 /**
  * Created by nancy on 15-10-18.
  */
-public class MyListView extends ListView implements View.OnTouchListener, AbsListView.OnScrollListener {
+public class MyListView extends ListView {
     private static final int MAX_LIST_ITEM_COUNT = 100;
     private int listViewTouchAction;
     public MyListView(Context context) {
@@ -22,8 +20,6 @@ public class MyListView extends ListView implements View.OnTouchListener, AbsLis
     public MyListView(Context context, AttributeSet attrs) {
         super(context, attrs);
         listViewTouchAction = -1;
-        setOnScrollListener(this);
-        setOnTouchListener(this);
     }
 
     public MyListView(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -36,7 +32,7 @@ public class MyListView extends ListView implements View.OnTouchListener, AbsLis
         int newHeight = 0;
         final int heightMode = MeasureSpec.getMode(heightMeasureSpec);
         int heigtSize = MeasureSpec.getSize(heightMeasureSpec);
-
+        //calculate
         if(heightMode != MeasureSpec.EXACTLY){
            ListAdapter adapter = getAdapter();
            if(adapter != null && !adapter.isEmpty()){
@@ -61,39 +57,5 @@ public class MyListView extends ListView implements View.OnTouchListener, AbsLis
             newHeight = getMeasuredHeight();
         }
         setMeasuredDimension(getMeasuredWidth(), newHeight);
-    }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent ev) {
-        if (getAdapter() != null && getAdapter().getCount() > MAX_LIST_ITEM_COUNT) {
-            if (ev.getAction() == MotionEvent.ACTION_MOVE) {
-                scrollBy(0, 1);
-            }
-        }
-        return super.onTouchEvent(ev);
-    }
-
-    @Override
-    public void onScrollStateChanged(AbsListView view, int scrollState) {
-
-    }
-
-    @Override
-    public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-        if (getAdapter() != null && getAdapter().getCount() > MAX_LIST_ITEM_COUNT) {
-            if (listViewTouchAction == MotionEvent.ACTION_MOVE) {
-                scrollBy(0, -1);
-            }
-        }
-    }
-
-    @Override
-    public boolean onTouch(View v, MotionEvent event) {
-        if (getAdapter() != null && getAdapter().getCount() > MAX_LIST_ITEM_COUNT) {
-            if (listViewTouchAction == MotionEvent.ACTION_MOVE) {
-                scrollBy(0, 1);
-            }
-        }
-        return false;
     }
 }

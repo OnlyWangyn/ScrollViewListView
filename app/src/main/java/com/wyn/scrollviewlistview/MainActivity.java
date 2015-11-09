@@ -30,8 +30,10 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
         mContext =this;
         View content_scrollview = findViewById(R.id.content_scrollview);
+        //Customize View
         mListView = (ListView)content_scrollview.findViewById(R.id.listview);
         MyListViewAdapter myListViewAdapter = new MyListViewAdapter(mContext);
         mListView.setAdapter(myListViewAdapter);
